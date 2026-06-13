@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { db } from '../firebase';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 const fadeInUp = {
  hidden: { opacity: 0, y: 30 },
@@ -335,15 +336,15 @@ function Home() {
    <>
      {/* Download Pills */}
      <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-8">
-       <button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }} className="bg-primary text-black px-6 sm:px-8 py-3 rounded-2xl font-bold shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+       <Link to="/download" className="bg-primary text-black px-6 sm:px-8 py-3 rounded-2xl font-bold shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
          <span className="material-symbols-outlined">desktop_windows</span> Windows
-       </button>
-       <button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }} className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
+       </Link>
+       <Link to="/download" className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
          <span className="material-symbols-outlined">android</span> Android
-       </button>
-       <button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }} className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
+       </Link>
+       <Link to="/download" className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
          <span className="material-symbols-outlined">terminal</span> Linux
-       </button>
+       </Link>
      </motion.div>
    </>
  )}
