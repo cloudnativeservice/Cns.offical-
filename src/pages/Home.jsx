@@ -169,33 +169,52 @@ const FAQItem = ({ faq, index }) => {
 };
 
 function Home() {
-  const [heroTimer, setHeroTimer] = useState(null);
   const [showBanner, setShowBanner] = useState(true);
+  const [targetDate, setTargetDate] = useState(null);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [isLaunched, setIsLaunched] = useState(false);
 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, 'config', 'waitlist'), (docSnap) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
         if (data.showBanner !== undefined) setShowBanner(data.showBanner);
-        if (data.heroTimerDelay !== undefined) {
-          setHeroTimer(prev => prev === null ? data.heroTimerDelay : prev);
+        if (data.targetDate) {
+          const dateStr = data.targetDate;
+          const timeStr = data.targetTime || '00:00';
+          setTargetDate(new Date(`${dateStr}T${timeStr}`));
         } else {
-          setHeroTimer(prev => prev === null ? 10 : prev);
+          const fallback = new Date();
+          fallback.setDate(fallback.getDate() + 30);
+          setTargetDate(fallback);
         }
-      } else {
-        setHeroTimer(prev => prev === null ? 10 : prev);
       }
     });
     return () => unsub();
   }, []);
 
   useEffect(() => {
-    if (!showBanner || heroTimer === null) return;
-    if (heroTimer > 0) {
-      const timerId = setTimeout(() => setHeroTimer(heroTimer - 1), 1000);
-      return () => clearTimeout(timerId);
-    }
-  }, [heroTimer, showBanner]);
+    if (!targetDate) return;
+
+    const calculateTimeLeft = () => {
+      const difference = +targetDate - +new Date();
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60)
+        });
+        setIsLaunched(false);
+      } else {
+        setIsLaunched(true);
+      }
+    };
+
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
  const theme = 'dark';
  useEffect(() => {
@@ -296,14 +315,20 @@ function Home() {
  Stream your movies, shows, and music from your PC to any device in the world. No subscriptions. Enterprise-grade performance.
  </motion.p>
  
- {showBanner && heroTimer !== null && heroTimer > 0 ? (
+ {showBanner && !isLaunched ? (
    <>
-     {/* Coming Soon Timer */}
-     <motion.div variants={fadeInUp} className="flex justify-center mb-8">
-       <button className="bg-primary text-black px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] transition-all flex items-center justify-center gap-3 cursor-wait">
-         <span className="material-symbols-outlined animate-spin">progress_activity</span>
-         <span>Preparing Downloads • 00:{heroTimer.toString().padStart(2, '0')}</span>
-       </button>
+     {/* Homepage Waitlist Countdown Timer */}
+     <motion.div variants={fadeInUp} className="flex justify-center gap-2 sm:gap-4 mb-8">
+        {Object.entries(timeLeft).map(([unit, value]) => (
+          <button 
+            key={unit} 
+            onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }}
+            className="flex flex-col items-center bg-primary text-black px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-bold shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:-translate-y-1 transition-all cursor-pointer group"
+          >
+            <span className="text-2xl sm:text-3xl tracking-tight leading-none mb-1">{value.toString().padStart(2, '0')}</span>
+            <span className="text-[10px] uppercase tracking-widest opacity-60 leading-none">{unit}</span>
+          </button>
+        ))}
      </motion.div>
    </>
  ) : (
