@@ -231,6 +231,19 @@ export default function Admin() {
                   </label>
                 </div>
 
+                {/* Hero Timer Delay */}
+                <div className="mb-10 pb-10 border-b border-white/5">
+                  <h3 className="font-bold text-lg mb-1">Homepage Download Timer (Seconds)</h3>
+                  <p className="text-white/50 text-sm mb-4">How many seconds users wait before the download buttons appear on the homepage.</p>
+                  <input 
+                    type="number" 
+                    min="0"
+                    value={config.heroTimerDelay !== undefined ? config.heroTimerDelay : 10}
+                    onChange={(e) => setConfig({...config, heroTimerDelay: parseInt(e.target.value) || 0})}
+                    className="bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary w-full max-w-sm"
+                  />
+                </div>
+
                 {/* Target Date */}
                 <div className="mb-10">
                   <h3 className="font-bold text-lg mb-1">Launch Date</h3>

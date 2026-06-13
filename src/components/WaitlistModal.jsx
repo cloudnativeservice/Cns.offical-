@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '../firebase';
-import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, onSnapshot } from 'firebase/firestore';
 
 export default function WaitlistModal({ isOpen, onClose }) {
   const [email, setEmail] = useState('');
@@ -13,21 +13,13 @@ export default function WaitlistModal({ isOpen, onClose }) {
   const [targetDate, setTargetDate] = useState(null);
 
   useEffect(() => {
-    const fetchConfig = async () => {
-      try {
-        const docSnap = await getDoc(doc(db, 'config', 'waitlist'));
-        if (docSnap.exists() && docSnap.data().targetDate) {
-          const dateStr = docSnap.data().targetDate;
-          const timeStr = docSnap.data().targetTime || '00:00';
-          setTargetDate(new Date(`${dateStr}T${timeStr}`));
-        } else {
-          // Fallback to 30 days
-          const fallback = new Date();
-          fallback.setDate(fallback.getDate() + 30);
-          setTargetDate(fallback);
-        }
-      } catch (e) {
-        console.error('Error fetching targetDate:', e);
+    const unsub = onSnapshot(doc(db, 'config', 'waitlist'), (docSnap) => {
+      if (docSnap.exists() && docSnap.data().targetDate) {
+        const dateStr = docSnap.data().targetDate;
+        const timeStr = docSnap.data().targetTime || '00:00';
+        setTargetDate(new Date(`${dateStr}T${timeStr}`));
+      } else {
+        // Fallback to 30 days
         const fallback = new Date();
         fallback.setDate(fallback.getDate() + 30);
         setTargetDate(fallback);

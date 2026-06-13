@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { db } from '../firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 
 const fadeInUp = {
  hidden: { opacity: 0, y: 30 },
@@ -169,31 +169,31 @@ const FAQItem = ({ faq, index }) => {
 };
 
 function Home() {
-  const [heroTimer, setHeroTimer] = useState(10);
+  const [heroTimer, setHeroTimer] = useState(null);
   const [showBanner, setShowBanner] = useState(true);
 
   useEffect(() => {
-    const fetchConfig = async () => {
-      try {
-        const docSnap = await getDoc(doc(db, 'config', 'waitlist'));
-        if (docSnap.exists() && docSnap.data().showBanner !== undefined) {
-          setShowBanner(docSnap.data().showBanner);
+    const unsub = onSnapshot(doc(db, 'config', 'waitlist'), (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.showBanner !== undefined) setShowBanner(data.showBanner);
+        if (data.heroTimerDelay !== undefined) {
+          setHeroTimer(prev => prev === null ? data.heroTimerDelay : prev);
+        } else {
+          setHeroTimer(prev => prev === null ? 10 : prev);
         }
-      } catch (e) {
-        console.error('Error fetching config:', e);
+      } else {
+        setHeroTimer(prev => prev === null ? 10 : prev);
       }
-    };
-    fetchConfig();
+    });
+    return () => unsub();
   }, []);
 
   useEffect(() => {
-    if (!showBanner) return;
+    if (!showBanner || heroTimer === null) return;
     if (heroTimer > 0) {
       const timerId = setTimeout(() => setHeroTimer(heroTimer - 1), 1000);
       return () => clearTimeout(timerId);
-    } else if (heroTimer === 0) {
-      window.dispatchEvent(new CustomEvent('openWaitlist'));
-      setHeroTimer(-1); // Prevent multiple dispatches
     }
   }, [heroTimer, showBanner]);
 
@@ -296,20 +296,13 @@ function Home() {
  Stream your movies, shows, and music from your PC to any device in the world. No subscriptions. Enterprise-grade performance.
  </motion.p>
  
- {showBanner ? (
+ {showBanner && heroTimer !== null && heroTimer > 0 ? (
    <>
      {/* Coming Soon Timer */}
      <motion.div variants={fadeInUp} className="flex justify-center mb-8">
-       <button 
-         onClick={() => window.dispatchEvent(new CustomEvent('openWaitlist'))}
-         className="bg-primary text-black px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:scale-105 transition-all flex items-center justify-center gap-3 cursor-pointer group"
-       >
-         <span className="material-symbols-outlined animate-pulse">schedule</span>
-         {heroTimer > 0 ? (
-           <span>Coming Soon • 00:{heroTimer.toString().padStart(2, '0')}</span>
-         ) : (
-           <span>Join the Waitlist</span>
-         )}
+       <button className="bg-primary text-black px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] transition-all flex items-center justify-center gap-3 cursor-wait">
+         <span className="material-symbols-outlined animate-spin">progress_activity</span>
+         <span>Preparing Downloads • 00:{heroTimer.toString().padStart(2, '0')}</span>
        </button>
      </motion.div>
    </>
@@ -317,13 +310,13 @@ function Home() {
    <>
      {/* Download Pills */}
      <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-8">
-       <button className="bg-primary text-black px-6 sm:px-8 py-3 rounded-2xl font-bold shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+       <button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }} className="bg-primary text-black px-6 sm:px-8 py-3 rounded-2xl font-bold shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
          <span className="material-symbols-outlined">desktop_windows</span> Windows
        </button>
-       <button className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
+       <button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }} className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
          <span className="material-symbols-outlined">android</span> Android
        </button>
-       <button className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
+       <button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }} className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
          <span className="material-symbols-outlined">terminal</span> Linux
        </button>
      </motion.div>
