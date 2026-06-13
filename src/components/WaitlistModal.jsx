@@ -24,8 +24,9 @@ export default function WaitlistModal({ isOpen, onClose }) {
         fallback.setDate(fallback.getDate() + 30);
         setTargetDate(fallback);
       }
-    };
-    fetchConfig();
+    });
+
+    return () => unsub();
   }, []);
 
   useEffect(() => {
