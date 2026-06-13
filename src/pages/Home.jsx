@@ -319,7 +319,7 @@ function Home() {
  {showBanner && !isLaunched ? (
    <>
      {/* Homepage Waitlist Countdown Timer */}
-     <motion.div variants={fadeInUp} className="flex justify-center gap-2 sm:gap-4 mb-8">
+     <motion.div variants={fadeInUp} className="flex justify-center gap-2 sm:gap-4 mb-6">
         {Object.entries(timeLeft).map(([unit, value]) => (
           <button 
             key={unit} 
@@ -330,6 +330,17 @@ function Home() {
             <span className="text-[10px] uppercase tracking-widest opacity-60 leading-none">{unit}</span>
           </button>
         ))}
+     </motion.div>
+
+     {/* Join Waitlist Explicit Button */}
+     <motion.div variants={fadeInUp} className="flex justify-center mb-8">
+       <button 
+         onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }}
+         className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-8 py-3 rounded-2xl font-bold hover:bg-white/20 hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
+       >
+         Join the Waitlist
+         <span className="material-symbols-outlined text-lg">arrow_forward</span>
+       </button>
      </motion.div>
    </>
  ) : (
