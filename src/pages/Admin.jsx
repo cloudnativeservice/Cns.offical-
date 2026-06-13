@@ -8,6 +8,7 @@ export default function Admin() {
   const [activeTab, setActiveTab] = useState('waitlist'); // waitlist, settings
 
   const [emails, setEmails] = useState([]);
+  const [visitors, setVisitors] = useState(0);
   const [config, setConfig] = useState({ targetDate: '', showBanner: true });
   const [loadingConfig, setLoadingConfig] = useState(true);
   const [savingConfig, setSavingConfig] = useState(false);
@@ -45,6 +46,13 @@ export default function Admin() {
       setEmails(emailList);
     });
 
+    // Fetch Visitors
+    const unsubscribeVisitors = onSnapshot(doc(db, 'stats', 'visitors'), (docSnap) => {
+      if (docSnap.exists()) {
+        setVisitors(docSnap.data().count || 0);
+      }
+    });
+
     // Fetch Config
     const fetchConfig = async () => {
       try {
@@ -66,7 +74,10 @@ export default function Admin() {
     };
     fetchConfig();
 
-    return () => unsubscribeEmails();
+    return () => {
+      unsubscribeEmails();
+      unsubscribeVisitors();
+    };
   }, [isAuthenticated]);
 
   const handleSaveConfig = async (e) => {
@@ -156,10 +167,32 @@ export default function Admin() {
         {/* WAITLIST TAB */}
         {activeTab === 'waitlist' && (
           <div>
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-[#111111] border border-white/5 p-6 rounded-3xl shadow-2xl flex items-center justify-between">
+                <div>
+                  <h3 className="text-white/50 text-sm font-bold uppercase tracking-widest mb-1">Total Visitors</h3>
+                  <div className="text-4xl font-black text-white">{visitors.toLocaleString()}</div>
+                </div>
+                <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center">
+                  <span className="material-symbols-outlined text-white/40 text-3xl">visibility</span>
+                </div>
+              </div>
+              <div className="bg-[#111111] border border-primary/20 p-6 rounded-3xl shadow-2xl flex items-center justify-between relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
+                <div className="relative z-10">
+                  <h3 className="text-white/50 text-sm font-bold uppercase tracking-widest mb-1">Waitlist Signups</h3>
+                  <div className="text-4xl font-black text-primary">{emails.length.toLocaleString()}</div>
+                </div>
+                <div className="relative z-10 w-16 h-16 bg-primary/10 border border-primary/20 rounded-2xl flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-3xl">group</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
               <div>
-                <h2 className="text-3xl font-black mb-2">Waitlisted Users</h2>
-                <p className="text-white/50">Total users on the waitlist: <strong className="text-primary">{emails.length}</strong></p>
+                <h2 className="text-2xl font-black mb-1">Waitlist Roster</h2>
+                <p className="text-white/50 text-sm">Manage users who signed up for early access.</p>
               </div>
               <button 
                 onClick={() => {
