@@ -33,7 +33,7 @@ export default function MainLayout() {
       <header className={`fixed z-50 transition-all duration-500 pointer-events-none ${isNavbarDetached ? 'top-4 md:top-6 left-4 right-4 max-w-5xl mx-auto' : 'top-0 left-0 right-0 w-full'}`}>
         <div className={`pointer-events-auto px-6 md:px-8 flex justify-between items-center transition-all duration-500 ${isNavbarDetached ? 'rounded-[2rem] border border-white/10 bg-[#050505]/95 backdrop-blur-2xl py-3 shadow-[0_20px_40px_rgba(0,0,0,0.5)]' : 'rounded-none border-b border-transparent bg-transparent py-5'}`}>
           <Link to="/" className="flex items-center gap-3 z-50 group">
-            <img src="/logo.png" alt="CNS Logo" className="h-8 w-auto group-hover:scale-110 transition-transform duration-500" />
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="CNS Logo" className="h-8 w-auto group-hover:scale-110 transition-transform duration-500" />
             <span className="text-2xl font-black tracking-tighter text-white">CNS</span>
           </Link>
           <nav className="hidden md:flex gap-8 items-center">
@@ -75,7 +75,7 @@ export default function MainLayout() {
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <img src="/logo.png" alt="CNS Logo" className="h-8 w-auto grayscale hover:grayscale-0 transition-all duration-300" />
+              <img src={`${import.meta.env.BASE_URL}logo.png`} alt="CNS Logo" className="h-8 w-auto grayscale hover:grayscale-0 transition-all duration-300" />
               <span className="text-2xl font-black tracking-tighter">CNS</span>
             </Link>
             <p className="text-white/40 text-sm leading-relaxed max-w-xs">The high-performance local media server engineered for speed, privacy, and flawless playback across all your devices.</p>
