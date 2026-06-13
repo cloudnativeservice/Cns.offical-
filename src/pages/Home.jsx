@@ -342,7 +342,7 @@ function Home() {
  animate={{ y: [0, -12, 0] }} 
  whileHover={{ scale: 1.05 }}
  transition={{ y: { repeat: Infinity, duration: 4, ease: "easeInOut" }, scale: { duration: 0.8, ease: "easeOut" } }}
- src={`${import.meta.env.BASE_URL}ASSETS/stream anywhere cutout.png`} 
+ src={`${import.meta.env.BASE_URL}media/stream anywhere cutout.png`} 
  alt="Stream Anywhere" 
  className="w-full h-auto object-contain md:scale-[1.15] transform-gpu drop-shadow-[0_25px_35px_rgba(0,0,0,0.15)] hover:drop-shadow-[0_35px_45px_rgba(0,0,0,0.2)] transition-all duration-[1s]" 
  />
@@ -366,7 +366,7 @@ function Home() {
  animate={{ y: [0, -15, 0] }} 
  whileHover={{ scale: 1.05 }}
  transition={{ y: { repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.2 }, scale: { duration: 0.8, ease: "easeOut" } }}
- src={`${import.meta.env.BASE_URL}ASSETS/smart librery.png`} 
+ src={`${import.meta.env.BASE_URL}media/smart librery.png`} 
  alt="Smart Library" 
  className="w-full h-auto object-contain md:scale-[1.15] transform-gpu drop-shadow-[0_25px_35px_rgba(0,0,0,0.15)] hover:drop-shadow-[0_35px_45px_rgba(0,0,0,0.2)] transition-all duration-[1s]" 
  />
@@ -390,7 +390,7 @@ function Home() {
  animate={{ y: [0, -10, 0] }} 
  whileHover={{ scale: 1.05 }}
  transition={{ y: { repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 0.4 }, scale: { duration: 0.8, ease: "easeOut" } }}
- src={`${import.meta.env.BASE_URL}ASSETS/your music everywhere.png`} 
+ src={`${import.meta.env.BASE_URL}media/your music everywhere.png`} 
  alt="Your Music Everywhere" 
  className="w-full h-auto object-contain md:scale-[1.15] transform-gpu drop-shadow-[0_25px_35px_rgba(0,0,0,0.15)] hover:drop-shadow-[0_35px_45px_rgba(0,0,0,0.2)] transition-all duration-[1s]" 
  />
@@ -414,7 +414,7 @@ function Home() {
  animate={{ y: [0, -12, 0] }} 
  whileHover={{ scale: 1.05 }}
  transition={{ y: { repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0.6 }, scale: { duration: 0.8, ease: "easeOut" } }}
- src={`${import.meta.env.BASE_URL}ASSETS/The cns eco system.png`} 
+ src={`${import.meta.env.BASE_URL}media/The cns eco system.png`} 
  alt="The CNS Ecosystem" 
  className="w-full h-auto object-contain md:scale-[1.15] transform-gpu drop-shadow-[0_25px_35px_rgba(0,0,0,0.15)] hover:drop-shadow-[0_35px_45px_rgba(0,0,0,0.2)] transition-all duration-[1s]" 
  />
@@ -460,14 +460,14 @@ function Home() {
  >
  <div className="absolute -inset-4 bg-black/[0.02] rounded-[2rem] group-hover:bg-black/[0.04] transition-colors duration-500"></div>
  <div className="relative rounded-3xl overflow-hidden shadow-xl border border-black/8">
- <LazyVideo src={`${import.meta.env.BASE_URL}ASSETS/new section videos/CNS_commercial_seamless_sync_202606121846.mp4`} className="!rounded-none w-full aspect-video border-0 !shadow-none group-hover:scale-105 transition-transform duration-[2s]" />
+ <LazyVideo src={`${import.meta.env.BASE_URL}media/new section videos/CNS_commercial_seamless_sync_202606121846.mp4`} className="!rounded-none w-full aspect-video border-0 !shadow-none group-hover:scale-105 transition-transform duration-[2s]" />
  </div>
  
  {/* Floating Cutout Over the Video */}
  <motion.img 
  animate={{ y: [0, -15, 0] }} 
  transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
- src={`${import.meta.env.BASE_URL}ASSETS/contunue watching.png`} 
+ src={`${import.meta.env.BASE_URL}media/contunue watching.png`} 
  alt="Continue Watching Cutout" 
  className="absolute -bottom-8 -right-4 sm:-right-8 w-28 sm:w-40 md:w-56 h-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] z-20 pointer-events-none group-hover:scale-110 transition-transform duration-[1s]" 
  />
@@ -517,7 +517,7 @@ function Home() {
  <motion.img 
  animate={{ y: [0, -15, 0] }} 
  transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
- src={`${import.meta.env.BASE_URL}ASSETS/new section videos/image.png`} 
+ src={`${import.meta.env.BASE_URL}media/new section videos/image.png`} 
  alt="Desktop UI" 
  className="w-full h-auto object-contain md:scale-[1.15] transform-gpu drop-shadow-[0_30px_50px_rgba(0,0,0,0.2)] group-hover:scale-[1.02] transition-transform duration-[1.5s] relative z-20 rounded-[2rem]"
  />
@@ -545,7 +545,7 @@ function Home() {
  className="relative mb-16"
  >
  <div className="relative rounded-[2rem] overflow-hidden border border-black/10 shadow-2xl">
- <LazyVideo src={`${import.meta.env.BASE_URL}ASSETS/new section videos/CNS_SaaS_explainer_video_202606121846.mp4`} className="!rounded-none w-full aspect-video !shadow-none" />
+ <LazyVideo src={`${import.meta.env.BASE_URL}media/new section videos/CNS_SaaS_explainer_video_202606121846.mp4`} className="!rounded-none w-full aspect-video !shadow-none" />
  </div>
  </motion.div>
 
@@ -585,13 +585,13 @@ function Home() {
  <motion.img 
  animate={{ y: [0, -15, 0] }} 
  transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
- src={`${import.meta.env.BASE_URL}ASSETS/pair in seconds cutout.png`} 
+ src={`${import.meta.env.BASE_URL}media/pair in seconds cutout.png`} 
  alt="Pair in seconds cutout" 
  className="absolute -right-4 sm:-right-12 -bottom-8 sm:-bottom-10 w-32 sm:w-48 md:w-64 h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.3)] z-20 pointer-events-none group-hover:scale-110 transition-transform duration-[1s]" 
  />
 
  <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border border-black/8 z-10 bg-black/5">
- <LazyVideo src={`${import.meta.env.BASE_URL}ASSETS/new section videos/CNS_product_demonstration_202606121849.mp4`} className="!rounded-none w-full aspect-video !shadow-none group-hover:scale-105 transition-transform duration-[2s]" />
+ <LazyVideo src={`${import.meta.env.BASE_URL}media/new section videos/CNS_product_demonstration_202606121849.mp4`} className="!rounded-none w-full aspect-video !shadow-none group-hover:scale-105 transition-transform duration-[2s]" />
  </div>
  </motion.div>
 
