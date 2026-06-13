@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import Features from './pages/Features';
@@ -20,7 +20,7 @@ import Admin from './pages/Admin';
 
 function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <HashRouter>
       <Routes>
         <Route path="/admin" element={<Admin />} />
         <Route path="/" element={<MainLayout />}>
@@ -44,7 +44,7 @@ function App() {
           <Route path="contactus" element={<ContactUs />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
