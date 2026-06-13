@@ -56,23 +56,24 @@ export default function WaitlistModal({ isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex justify-center items-center p-4"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
           />
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-3xl p-8 shadow-2xl z-[101] overflow-hidden"
-          >
-            {/* Background Glow */}
-            <div className="absolute -top-32 -left-32 w-64 h-64 bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
-            <div className="absolute -bottom-32 -right-32 w-64 h-64 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+          <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-3xl p-8 shadow-2xl overflow-hidden pointer-events-auto relative"
+            >
+              {/* Background Glow */}
+              <div className="absolute -top-32 -left-32 w-64 h-64 bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
+              <div className="absolute -bottom-32 -right-32 w-64 h-64 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-            <button onClick={onClose} className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
-              <span className="material-symbols-outlined">close</span>
-            </button>
+              <button onClick={onClose} className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
+                <span className="material-symbols-outlined">close</span>
+              </button>
 
-            <div className="relative z-10 text-center">
+              <div className="relative z-10 text-center">
               <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">Coming Soon</span>
               <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4">CNS Desktop & Mobile</h2>
               <p className="text-white/60 mb-8 leading-relaxed">The ultimate media experience is almost here. Join the waitlist to get early access before the public launch.</p>
@@ -110,7 +111,8 @@ export default function WaitlistModal({ isOpen, onClose }) {
                 </form>
               )}
             </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
