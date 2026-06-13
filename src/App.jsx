@@ -16,11 +16,13 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import License from './pages/License';
 import ContactUs from './pages/ContactUs';
+import Admin from './pages/Admin';
 
 function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
+        <Route path="/admin" element={<Admin />} />
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="features" element={<Features />} />

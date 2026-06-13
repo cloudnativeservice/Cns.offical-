@@ -1,49 +1,82 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 
 export default function WaitlistModal({ isOpen, onClose }) {
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   
   // Countdown Timer Logic
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [targetDate, setTargetDate] = useState(null);
 
   useEffect(() => {
-    const handleOpen = () => {
-      // Assuming onClose is provided, but since we are modifying state, let's change WaitlistModal to hold its own isOpen state if we use events.
-      // Wait, WaitlistModal is controlled via props. I'll just keep it simple.
+    const fetchConfig = async () => {
+      try {
+        const docSnap = await getDoc(doc(db, 'config', 'waitlist'));
+        if (docSnap.exists() && docSnap.data().targetDate) {
+          const dateStr = docSnap.data().targetDate;
+          const timeStr = docSnap.data().targetTime || '00:00';
+          setTargetDate(new Date(`${dateStr}T${timeStr}`));
+        } else {
+          // Fallback to 30 days
+          const fallback = new Date();
+          fallback.setDate(fallback.getDate() + 30);
+          setTargetDate(fallback);
+        }
+      } catch (e) {
+        console.error('Error fetching targetDate:', e);
+        const fallback = new Date();
+        fallback.setDate(fallback.getDate() + 30);
+        setTargetDate(fallback);
+      }
     };
+    fetchConfig();
   }, []);
 
   useEffect(() => {
-    // Set launch date to 30 days from now
-    const launchDate = new Date();
-    launchDate.setDate(launchDate.getDate() + 30);
-    
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = launchDate.getTime() - now;
+    if (!targetDate) return;
 
-      setTimeLeft({
-        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((distance % (1000 * 60)) / 1000)
-      });
-    }, 1000);
+    const calculateTimeLeft = () => {
+      const difference = +targetDate - +new Date();
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60)
+        });
+      }
+    };
 
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [targetDate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(email) {
-      setSubmitted(true);
+    if (!email) return;
+    
+    setIsSubmitting(true);
+    try {
+      await addDoc(collection(db, 'emails'), {
+        email: email,
+        timestamp: serverTimestamp()
+      });
+      setIsSuccess(true);
       setTimeout(() => {
         onClose();
-        setSubmitted(false);
+        setIsSuccess(false);
         setEmail('');
       }, 3000);
+    } catch (error) {
+      console.error("Error adding email to waitlist:", error);
+      alert("Failed to join waitlist. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -90,7 +123,7 @@ export default function WaitlistModal({ isOpen, onClose }) {
                 ))}
               </div>
 
-              {submitted ? (
+              {isSuccess ? (
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-xl flex items-center justify-center gap-2">
                   <span className="material-symbols-outlined">check_circle</span>
                   <span className="font-bold">You're on the list! Keep an eye on your inbox.</span>
@@ -105,8 +138,9 @@ export default function WaitlistModal({ isOpen, onClose }) {
                     placeholder="Enter your email address" 
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
                   />
-                  <button type="submit" className="w-full bg-primary text-black font-bold py-4 rounded-xl hover:bg-white hover:scale-[1.02] transition-all duration-300">
-                    Join the Waitlist
+                  <button type="submit" disabled={isSubmitting} className="w-full bg-primary text-black font-bold py-4 rounded-xl hover:bg-white hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100 flex items-center justify-center gap-2">
+                    {isSubmitting ? <span className="material-symbols-outlined animate-spin">progress_activity</span> : null}
+                    {isSubmitting ? 'Joining...' : 'Join the Waitlist'}
                   </button>
                 </form>
               )}

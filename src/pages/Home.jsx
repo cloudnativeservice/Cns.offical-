@@ -6,6 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 const fadeInUp = {
  hidden: { opacity: 0, y: 30 },
@@ -167,17 +169,33 @@ const FAQItem = ({ faq, index }) => {
 };
 
 function Home() {
- const [heroTimer, setHeroTimer] = useState(10);
+  const [heroTimer, setHeroTimer] = useState(10);
+  const [showBanner, setShowBanner] = useState(true);
 
- useEffect(() => {
-   if (heroTimer > 0) {
-     const timerId = setTimeout(() => setHeroTimer(heroTimer - 1), 1000);
-     return () => clearTimeout(timerId);
-   } else if (heroTimer === 0) {
-     window.dispatchEvent(new CustomEvent('openWaitlist'));
-     setHeroTimer(-1); // Prevent multiple dispatches
-   }
- }, [heroTimer]);
+  useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const docSnap = await getDoc(doc(db, 'config', 'waitlist'));
+        if (docSnap.exists() && docSnap.data().showBanner !== undefined) {
+          setShowBanner(docSnap.data().showBanner);
+        }
+      } catch (e) {
+        console.error('Error fetching config:', e);
+      }
+    };
+    fetchConfig();
+  }, []);
+
+  useEffect(() => {
+    if (!showBanner) return;
+    if (heroTimer > 0) {
+      const timerId = setTimeout(() => setHeroTimer(heroTimer - 1), 1000);
+      return () => clearTimeout(timerId);
+    } else if (heroTimer === 0) {
+      window.dispatchEvent(new CustomEvent('openWaitlist'));
+      setHeroTimer(-1); // Prevent multiple dispatches
+    }
+  }, [heroTimer, showBanner]);
 
  const theme = 'dark';
  useEffect(() => {
@@ -278,20 +296,39 @@ function Home() {
  Stream your movies, shows, and music from your PC to any device in the world. No subscriptions. Enterprise-grade performance.
  </motion.p>
  
- {/* Coming Soon Timer */}
- <motion.div variants={fadeInUp} className="flex justify-center mb-8">
-   <button 
-     onClick={() => window.dispatchEvent(new CustomEvent('openWaitlist'))}
-     className="bg-primary text-black px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:scale-105 transition-all flex items-center justify-center gap-3 cursor-pointer group"
-   >
-     <span className="material-symbols-outlined animate-pulse">schedule</span>
-     {heroTimer > 0 ? (
-       <span>Coming Soon • 00:{heroTimer.toString().padStart(2, '0')}</span>
-     ) : (
-       <span>Join the Waitlist</span>
-     )}
-   </button>
- </motion.div>
+ {showBanner ? (
+   <>
+     {/* Coming Soon Timer */}
+     <motion.div variants={fadeInUp} className="flex justify-center mb-8">
+       <button 
+         onClick={() => window.dispatchEvent(new CustomEvent('openWaitlist'))}
+         className="bg-primary text-black px-8 py-4 rounded-2xl font-bold text-lg shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:scale-105 transition-all flex items-center justify-center gap-3 cursor-pointer group"
+       >
+         <span className="material-symbols-outlined animate-pulse">schedule</span>
+         {heroTimer > 0 ? (
+           <span>Coming Soon • 00:{heroTimer.toString().padStart(2, '0')}</span>
+         ) : (
+           <span>Join the Waitlist</span>
+         )}
+       </button>
+     </motion.div>
+   </>
+ ) : (
+   <>
+     {/* Download Pills */}
+     <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-8">
+       <button className="bg-primary text-black px-6 sm:px-8 py-3 rounded-2xl font-bold shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+         <span className="material-symbols-outlined">desktop_windows</span> Windows
+       </button>
+       <button className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
+         <span className="material-symbols-outlined">android</span> Android
+       </button>
+       <button className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-6 sm:px-8 py-3 rounded-2xl font-bold hover:bg-white/20 transition-all flex items-center justify-center gap-2">
+         <span className="material-symbols-outlined">terminal</span> Linux
+       </button>
+     </motion.div>
+   </>
+ )}
 
  {/* Trust Badges */}
  <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 md:gap-12 text-xs sm:text-sm font-bold text-white/60 uppercase tracking-widest">
