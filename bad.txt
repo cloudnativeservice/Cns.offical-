@@ -1,0 +1,68 @@
+283:         <section data-light-bg="#ffffff" data-dark-bg="#0A0A0A" className="py-10 border-b border-black/5 dark:border-white/5 transition-colors duration-1000 -mt-[15vh] relative z-20 pt-[15vh]">
+286:               <span className="text-[10px] font-bold tracking-[0.35em] text-black/40 dark:text-white/40 uppercase mr-4">Platforms</span>
+295:                 <div key={label} className="flex items-center gap-2 text-black/40 dark:text-white/40 hover:text-black dark:text-white/90 transition-all duration-300 cursor-pointer group">
+305:         <section data-light-bg="#F4F4F6" data-dark-bg="#050505" className="py-24 md:py-36 border-b border-black/5 dark:border-white/5 transition-colors duration-1000" id="features">
+313:                 Built strictly for <span className="text-black/30 dark:text-white/30">performance</span>.<br />
+314:                 Designed purely for <span className="text-black/30 dark:text-white/30">you</span>.
+325:                   <div className="mb-3 inline-block text-[10px] font-bold tracking-[0.2em] text-black/50 dark:text-white/50 border border-black/10 dark:border-white/10 px-3 py-1 rounded-full uppercase">PERFORMANCE</div>
+327:                   <p className="text-black/60 dark:text-white/60 leading-relaxed text-lg">Engineered in Rust & Go for bare-metal performance. Expect sub-10ms response times and flawless 4K HDR playback with full Dolby Vision support from your drive to any screen.</p>
+349:                   <div className="mb-3 inline-block text-[10px] font-bold tracking-[0.2em] text-black/50 dark:text-white/50 border border-black/10 dark:border-white/10 px-3 py-1 rounded-full uppercase">ORGANIZATION</div>
+351:                   <p className="text-black/60 dark:text-white/60 leading-relaxed text-lg">Drop a file in your folder, and CNS does the rest. It automatically fetches gorgeous cinematic posters, cast details, ratings, and descriptions to turn a messy folder into a beautiful library.</p>
+373:                   <div className="mb-3 inline-block text-[10px] font-bold tracking-[0.2em] text-black/50 dark:text-white/50 border border-black/10 dark:border-white/10 px-3 py-1 rounded-full uppercase">AUDIO</div>
+375:                   <p className="text-black/60 dark:text-white/60 leading-relaxed text-lg">Don't compromise your sound system. CNS streams lossless FLAC, ALAC, and spatial audio formats directly to your receiver without crushing the bitrate.</p>
+397:                   <div className="mb-3 inline-block text-[10px] font-bold tracking-[0.2em] text-black/50 dark:text-white/50 border border-black/10 dark:border-white/10 px-3 py-1 rounded-full uppercase">SECURITY</div>
+399:                   <p className="text-black/60 dark:text-white/60 leading-relaxed text-lg">Military-grade encryption ensures your media never reaches our relay servers unencrypted. Your data stays completely private within the CNS ecosystem.</p>
+420:         <section data-light-bg="#FAEDE6" data-dark-bg="#080A08" className="py-24 md:py-36 border-b border-black/5 dark:border-white/5 transition-colors duration-1000" id="continue-watching">
+427:                 <div className="inline-flex items-center gap-2 bg-black/5 dark:bg-white/5 text-black dark:text-white text-[10px] font-bold tracking-[0.2em] uppercase px-4 py-2 rounded-full mb-8">
+437:                       className="flex items-center gap-4 text-black/70 dark:text-white/70 font-medium text-lg group"
+439:                       <span className="w-8 h-8 rounded-full bg-black/10 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/20 flex items-center justify-center text-black dark:text-white font-bold text-sm flex-shrink-0 shadow-[0_4px_12px_rgba(255,255,255,0.05)] group-hover:scale-110 group-hover:bg-white/20 transition-all duration-300">{i + 1}</span>
+452:                 <div className="relative rounded-3xl overflow-hidden shadow-xl border border-black/5 dark:border-white/5">
+470:         <section data-light-bg="#F0F4F8" data-dark-bg="#000000" className="py-24 md:py-36 border-b border-black/5 dark:border-white/5 transition-colors duration-1000" id="setup">
+476:               <p className="text-black/50 dark:text-white/50 text-lg mt-6 max-w-2xl mx-auto leading-relaxed">No IT degree. No complex manuals. Just straightforward setup to get you streaming immediately.</p>
+488:                   className="bg-white dark:bg-[#0A0A0A] border border-black/5 dark:border-white/5 rounded-[2rem] p-8 relative overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 group"
+490:                   <div className="absolute top-6 right-8 text-7xl font-black text-black dark:text-white/5 select-none group-hover:text-primary/10 transition-colors duration-300">{n}</div>
+495:                   <p className="text-black/60 dark:text-white/60 leading-relaxed text-base relative z-10">{desc}</p>
+519:         <section data-light-bg="#F4F4F6" data-dark-bg="#050505" className="py-24 md:py-36 border-b border-black/5 dark:border-white/5 transition-colors duration-1000" id="how-it-works">
+530:               <p className="text-black/50 dark:text-white/50 text-lg max-w-sm leading-relaxed md:mb-2">A transparent look at how your media travels securely from your hard drive to any screen in the world.</p>
+537:               <div className="relative rounded-[2rem] overflow-hidden border border-black/10 dark:border-white/10 shadow-2xl">
+551:                   className="bg-white dark:bg-[#0A0A0A] rounded-[1.5rem] p-6 flex flex-col items-center text-center gap-4 hover:bg-black/5 dark:bg-[#1A1A1A] group transition-colors duration-300 shadow-sm border border-black/5 dark:border-white/5"
+553:                   <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 group-hover:bg-black/10 dark:bg-white/10 flex items-center justify-center transition-colors">
+556:                   <span className="text-black/40 dark:text-white/40 group-hover:text-black/40 dark:text-white/40 font-bold text-xs tracking-widest transition-colors">STEP {n}</span>
+565:         <section data-light-bg="#ffffff" data-dark-bg="#0A0A0A" className="py-24 md:py-36 border-b border-black/5 dark:border-white/5 transition-colors duration-1000" id="qr-pairing">
+583:                 <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border border-black/5 dark:border-white/5 z-10 bg-black/5 dark:bg-[#1A1A1A]">
+592:                 <div className="inline-flex items-center gap-2 bg-black/5 dark:bg-white/5 text-black dark:text-white text-[10px] font-bold tracking-[0.2em] uppercase px-4 py-2 rounded-full mb-8">Zero Friction</div>
+606:                       <span className="text-black/70 dark:text-white/70 font-medium text-lg">{text}</span>
+616:         <section data-light-bg="#F4F4F6" data-dark-bg="#050505" className="py-24 md:py-36 border-b border-black/5 dark:border-white/5 transition-colors duration-1000" id="compare">
+624:               <p className="text-black/50 dark:text-white/50 text-lg mt-4 max-w-xl mx-auto">We respect the competition, but we built CNS to solve the fundamental flaws in existing media servers.</p>
+629:               className="overflow-hidden rounded-[2rem] border border-black/10 dark:border-white/10 bg-white dark:bg-[#0A0A0A] shadow-xl"
+635:                     <th className="py-6 px-8 font-bold text-sm text-black/50 dark:text-white/50 w-1/4">Feature</th>
+637:                     <th className="py-6 px-8 font-medium text-sm text-black/50 dark:text-white/50 w-1/4">Plex</th>
+638:                     <th className="py-6 px-8 font-medium text-sm text-black/50 dark:text-white/50 w-1/4">Jellyfin</th>
+651:                       <td className="py-5 px-8 text-black/60 dark:text-white/60 text-sm font-medium">{feat}</td>
+653:                       <td className="py-5 px-8 text-black/40 dark:text-white/40 text-sm">{plex}</td>
+654:                       <td className="py-5 px-8 text-black/40 dark:text-white/40 text-sm">{jelly}</td>
+671:                 Start streaming <span className="text-black/30 dark:text-white/30">today.</span>
+684:                 <span className="inline-block bg-black/10 dark:bg-white/10 text-black dark:text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-6">Recommended</span>
+686:                 <p className="text-black/50 dark:text-white/50 text-lg mb-10 max-w-sm">Full hardware transcoding. 4K HDR support. Zero latency local streaming.</p>
+695:                 className="md:col-span-6 lg:col-span-4 bg-white dark:bg-[#111111] border border-black/5 dark:border-white/5 rounded-[2rem] p-8 flex flex-col hover:bg-white dark:bg-[#0A0A0A] hover:shadow-xl transition-all"
+698:                 <p className="text-black/50 dark:text-white/50 text-sm mb-auto">macOS · iOS · iPadOS</p>
+703:                   <button className="w-full flex items-center justify-center gap-2 border border-black/10 dark:border-white/10 text-black dark:text-white font-bold py-4 rounded-xl text-sm hover:border-black dark:border-white hover:bg-black/5 dark:bg-[#1A1A1A] hover:text-black dark:text-white transition-all">
+712:                 className="md:col-span-6 lg:col-span-4 bg-white dark:bg-[#111111] border border-black/5 dark:border-white/5 rounded-[2rem] p-8 flex flex-col hover:bg-white dark:bg-[#0A0A0A] hover:shadow-xl transition-all"
+715:                 <p className="text-black/50 dark:text-white/50 text-sm mb-auto">Mobile · Tablet · TV</p>
+724:                 className="md:col-span-6 lg:col-span-4 bg-white dark:bg-[#111111] border border-black/5 dark:border-white/5 rounded-[2rem] p-8 flex flex-col hover:bg-white dark:bg-[#0A0A0A] hover:shadow-xl transition-all"
+727:                 <p className="text-black/50 dark:text-white/50 text-sm mb-auto">Debian · Ubuntu · Arch</p>
+728:                 <button className="mt-8 w-full flex items-center justify-center gap-2 border border-black/10 dark:border-white/10 text-black dark:text-white font-bold py-4 rounded-xl text-sm hover:border-black dark:border-white hover:bg-black/5 dark:bg-[#1A1A1A] hover:text-black dark:text-white transition-all">
+736:                 className="md:col-span-6 lg:col-span-4 bg-white dark:bg-[#111111] border border-black/5 dark:border-white/5 rounded-[2rem] p-8 flex flex-col hover:bg-white dark:bg-[#0A0A0A] hover:shadow-xl transition-all"
+739:                 <p className="text-black/50 dark:text-white/50 text-sm mb-6">Containerized Server</p>
+740:                 <div className="mt-auto bg-black/5 dark:bg-[#1A1A1A] border border-black dark:border-white/8 rounded-xl px-5 py-4 flex items-center justify-between cursor-copy group/c transition-all shadow-inner">
+741:                   <code className="text-black dark:text-white/80 font-mono text-sm">docker pull cns</code>
+742:                   <span className="material-symbols-outlined text-black/40 dark:text-white/40 group-hover/c:text-primary text-sm transition-colors">content_copy</span>
+751:       <footer className="bg-white dark:bg-[#0A0A0A] border-t border-black/5 dark:border-white/5 pt-20 pb-10 transition-colors duration-1000">
+753:           <div className="mb-16 pb-16 border-b border-black/5 dark:border-white/5 flex flex-col md:flex-row md:items-end justify-between gap-8">
+757:             <p className="text-black/50 dark:text-white/50 max-w-sm leading-relaxed text-base font-medium">
+772:                     <li key={l}><a href="#" className="text-black/50 dark:text-white/50 hover:text-black dark:text-white text-sm font-medium transition-colors">{l}</a></li>
+781:                   <a key={icon} href="#" className="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/5 dark:bg-[#1A1A1A] hover:text-black dark:text-white flex items-center justify-center text-black/50 dark:text-white/50 transition-all">
+789:           <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-black/5 dark:border-white/5">
+790:             <p className="text-black/40 dark:text-white/40 text-xs font-medium">© 2026 Cloud Network Stream. All rights reserved.</p>
+795:                 className="w-14 h-8 rounded-full bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/20 flex items-center p-1 relative transition-colors duration-500"
+803:               <p className="text-black/30 dark:text-white/30 text-xs font-bold tracking-[0.2em] uppercase">CNS Project</p>
