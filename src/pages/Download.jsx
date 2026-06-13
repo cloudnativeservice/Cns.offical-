@@ -189,7 +189,7 @@ export default function Download() {
                           <td className="py-5 px-8 text-black/60 font-medium text-sm">{v.date}</td>
                           <td className="py-5 px-8 text-[#111111] font-medium text-sm">{v.changes}</td>
                           <td className="py-5 px-8">
-                            <a href="#" onClick={(e) => e.preventDefault()} className="text-primary font-bold hover:underline flex items-center gap-1 text-sm">
+                            <a href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }} className="text-primary font-bold hover:underline flex items-center gap-1 text-sm">
                               {v.link}
                               <span className="material-symbols-outlined text-xs">download</span>
                             </a>

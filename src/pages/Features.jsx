@@ -103,9 +103,9 @@ export default function Features() {
           <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
           <h2 className="text-4xl font-black text-white tracking-tight mb-6">Ready to experience the difference?</h2>
           <p className="text-white/60 text-lg mb-10 max-w-2xl mx-auto">Join thousands of users who have already switched to the ultimate local media ecosystem.</p>
-          <a href="/download" className="inline-block bg-primary text-black px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 hover:shadow-[0_0_40px_rgba(199,255,47,0.4)] transition-all duration-300">
+          <button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }} className="inline-block bg-primary text-black px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 hover:shadow-[0_0_40px_rgba(199,255,47,0.4)] transition-all duration-300">
             Download CNS Now
-          </a>
+          </button>
         </motion.div>
 
       </div>

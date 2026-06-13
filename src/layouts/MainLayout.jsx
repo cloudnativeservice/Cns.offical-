@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import WaitlistModal from '../components/WaitlistModal';
 
 export default function MainLayout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
   const location = useLocation();
 
   // Scroll to top on route change
@@ -18,6 +20,12 @@ export default function MainLayout() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const openWaitlist = () => setIsWaitlistModalOpen(true);
+    window.addEventListener('openWaitlist', openWaitlist);
+    return () => window.removeEventListener('openWaitlist', openWaitlist);
+  }, []);
+
   const isHome = location.pathname === '/';
   const isNavbarDetached = scrolled || !isHome;
 
@@ -25,7 +33,6 @@ export default function MainLayout() {
     { name: 'Features', link: '/features' },
     { name: 'Setup', link: '/setup' },
     { name: 'Compare', link: '/compare' },
-    { name: 'Download', link: '/download' },
   ];
 
   return (
@@ -42,9 +49,12 @@ export default function MainLayout() {
                 {item.name}
               </Link>
             ))}
+            <button onClick={() => setIsWaitlistModalOpen(true)} className="text-sm font-bold text-white/70 hover:text-white transition-colors">
+              Download
+            </button>
           </nav>
           <div className="hidden md:flex items-center gap-4">
-            <Link to="/download" className="bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-primary transition-colors hover:shadow-[0_0_20px_rgba(199,255,47,0.3)] text-sm">Download</Link>
+            <button onClick={() => setIsWaitlistModalOpen(true)} className="bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-primary transition-colors hover:shadow-[0_0_20px_rgba(199,255,47,0.3)] text-sm">Download</button>
           </div>
           <button className="md:hidden z-50 w-10 h-10 flex flex-col justify-center items-center gap-1.5" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <span className={`w-6 h-0.5 bg-white transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
@@ -62,7 +72,15 @@ export default function MainLayout() {
                 {item.name}
               </motion.a>
             ))}
-            <Link to="/download" onClick={() => setIsMenuOpen(false)} className="mt-8 bg-primary text-black py-4 rounded-xl font-bold text-center text-lg">Download</Link>
+            <button 
+              onClick={() => {
+                setIsMenuOpen(false);
+                setIsWaitlistModalOpen(true);
+              }} 
+              className="mt-8 bg-primary text-black py-4 rounded-xl font-bold text-center text-lg w-full"
+            >
+              Download
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -83,9 +101,10 @@ export default function MainLayout() {
           <div>
             <h4 className="font-bold mb-6 tracking-widest text-xs text-white/40">PRODUCT</h4>
             <ul className="space-y-4">
-              {['Download', 'Features', 'Changelog', 'Roadmap'].map(i => (
+              {['Features', 'Changelog', 'Roadmap'].map(i => (
                 <li key={i}><Link to={`/${i.toLowerCase()}`} className="text-white/60 hover:text-white transition-colors text-sm">{i}</Link></li>
               ))}
+              <li><button onClick={() => setIsWaitlistModalOpen(true)} className="text-white/60 hover:text-white transition-colors text-sm text-left">Download</button></li>
             </ul>
           </div>
           <div>
@@ -116,6 +135,11 @@ export default function MainLayout() {
           </div>
         </div>
       </footer>
+
+      <WaitlistModal 
+        isOpen={isWaitlistModalOpen} 
+        onClose={() => setIsWaitlistModalOpen(false)} 
+      />
     </div>
   );
 }
