@@ -292,8 +292,8 @@ function Home() {
  
 
  <main>
- {/* 2. Hero Section (Always Dark) - WITH CSS MASK FADE */}
- <section style={{ WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)', paddingBottom: '15vh' }} data-light-bg="#f5f6f7" data-dark-bg="#f5f6f7" className="relative min-h-[115vh] flex flex-col items-center justify-center pt-24 overflow-hidden bg-black">
+ {/* 2. Hero Section (Always Dark) */}
+ <section data-light-bg="#f5f6f7" data-dark-bg="#f5f6f7" className="relative min-h-[100svh] w-full flex flex-col items-center justify-center pt-20 pb-4 overflow-hidden bg-black">
  {/* Cinematic Video Background */}
  <video 
  autoPlay loop muted playsInline
@@ -307,33 +307,34 @@ function Home() {
  initial="hidden" animate="visible" variants={staggerContainer}
  className="relative z-10 w-full max-w-[1100px] mx-auto px-4 sm:px-6 text-center"
  >
- <motion.h1 variants={fadeInUp} className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] leading-[1.1] md:leading-[1] tracking-tight mb-6 text-white mt-8">
- Your Personal <br/>
- <span className="text-primary">Media Cloud.</span>
+ <motion.h1 variants={fadeInUp} className="font-body font-black text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] leading-[1.05] md:leading-[1] tracking-tight mb-3 text-white mt-2">
+ All Your Media.<br/>
+ Yours. <span className="text-primary">Anywhere</span>
  </motion.h1>
  
- <motion.p variants={fadeInUp} className="text-base sm:text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed font-medium">
- Stream your movies, shows, and music from your PC to any device in the world. No subscriptions. Enterprise-grade performance.
+ <motion.p variants={fadeInUp} className="text-base sm:text-lg md:text-xl text-white/70 mb-5 max-w-2xl mx-auto leading-relaxed font-medium">
+ Stream your movies, shows, music, and photos from your PC to any device. No subscriptions. No limits. Just yours.
  </motion.p>
  
  {showBanner && !isLaunched ? (
    <>
      {/* Homepage Waitlist Countdown Timer */}
-     <motion.div variants={fadeInUp} className="flex justify-center gap-2 sm:gap-4 mb-6">
+     <motion.div variants={fadeInUp} className="flex justify-center gap-2 sm:gap-4 mb-4">
         {Object.entries(timeLeft).map(([unit, value]) => (
           <button 
             key={unit} 
             onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }}
-            className="flex flex-col items-center bg-primary text-black px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-bold shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:-translate-y-1 transition-all cursor-pointer group"
+            className="flex flex-col items-center justify-center w-[76px] h-[80px] sm:w-[92px] sm:h-[96px] bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(199,255,47,0.15)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group relative overflow-hidden"
           >
-            <span className="text-2xl sm:text-3xl tracking-tight leading-none mb-1">{value.toString().padStart(2, '0')}</span>
-            <span className="text-[10px] uppercase tracking-widest opacity-60 leading-none">{unit}</span>
+            <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span className="text-3xl sm:text-4xl font-black font-body tracking-tighter text-white group-hover:text-primary transition-colors duration-300 relative z-10 leading-none mb-1.5">{value.toString().padStart(2, '0')}</span>
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-white/50 group-hover:text-white/80 transition-colors duration-300 leading-none relative z-10">{unit}</span>
           </button>
         ))}
      </motion.div>
 
      {/* Join Waitlist Explicit Button */}
-     <motion.div variants={fadeInUp} className="flex justify-center mb-8">
+     <motion.div variants={fadeInUp} className="flex justify-center mb-4">
        <button 
          onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openWaitlist')); }}
          className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-8 py-3 rounded-2xl font-bold hover:bg-white/20 hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
@@ -346,7 +347,7 @@ function Home() {
  ) : (
    <>
      {/* Download Pills */}
-     <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-8">
+     <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-4">
        <Link to="/download" className="bg-primary text-black px-6 sm:px-8 py-3 rounded-2xl font-bold shadow-[0_0_40px_rgba(199,255,47,0.3)] hover:shadow-[0_0_60px_rgba(199,255,47,0.5)] hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
          <span className="material-symbols-outlined">desktop_windows</span> Windows
        </Link>
@@ -360,18 +361,51 @@ function Home() {
    </>
  )}
 
- {/* Trust Badges */}
- <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 md:gap-12 text-xs sm:text-sm font-bold text-white/60 uppercase tracking-widest">
- <div className="flex items-center justify-center gap-2"><span className="material-symbols-outlined text-primary text-base sm:text-lg">gpp_good</span> Local First</div>
- <div className="flex items-center justify-center gap-2"><span className="material-symbols-outlined text-primary text-base sm:text-lg">4k</span> 4K Streaming</div>
- <div className="flex items-center justify-center gap-2"><span className="material-symbols-outlined text-primary text-base sm:text-lg">all_inclusive</span> Unlimited Library</div>
+ {/* Trust Badges - Redesigned */}
+ <motion.div variants={fadeInUp} className="w-full max-w-5xl mx-auto mt-4 mb-2">
+   <div className="flex flex-col md:flex-row items-center justify-between bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-[1.5rem] p-4 md:p-5 shadow-2xl relative overflow-hidden">
+     <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 pointer-events-none"></div>
+     
+     <div className="flex items-start gap-4 flex-1 px-2 lg:px-4 border-b md:border-b-0 md:border-r border-white/10 w-full md:w-auto py-4 md:py-0 relative z-10 hover:scale-105 transition-transform duration-300">
+       <span className="material-symbols-outlined text-primary text-2xl lg:text-3xl drop-shadow-[0_0_15px_rgba(199,255,47,0.5)]">bolt</span>
+       <div className="flex flex-col text-left">
+         <span className="text-white font-bold text-sm md:text-base mb-1">{'<'}10ms Latency</span>
+         <span className="text-white/50 text-xs font-medium">Blazing fast streaming</span>
+       </div>
+     </div>
+
+     <div className="flex items-start gap-4 flex-1 px-2 lg:px-4 border-b md:border-b-0 md:border-r border-white/10 w-full md:w-auto py-4 md:py-0 relative z-10 hover:scale-105 transition-transform duration-300">
+       <span className="material-symbols-outlined text-primary text-2xl lg:text-3xl drop-shadow-[0_0_15px_rgba(199,255,47,0.5)]">4k</span>
+       <div className="flex flex-col text-left">
+         <span className="text-white font-bold text-sm md:text-base mb-1">4K HDR Support</span>
+         <span className="text-white/50 text-xs font-medium">Stunning visual quality</span>
+       </div>
+     </div>
+
+     <div className="flex items-start gap-4 flex-1 px-2 lg:px-4 border-b md:border-b-0 md:border-r border-white/10 w-full md:w-auto py-4 md:py-0 relative z-10 hover:scale-105 transition-transform duration-300">
+       <span className="material-symbols-outlined text-primary text-2xl lg:text-3xl drop-shadow-[0_0_15px_rgba(199,255,47,0.5)]">lock</span>
+       <div className="flex flex-col text-left">
+         <span className="text-white font-bold text-sm md:text-base mb-1">100% Private</span>
+         <span className="text-white/50 text-xs font-medium">Your data, stays yours</span>
+       </div>
+     </div>
+
+     <div className="flex items-start gap-4 flex-1 px-2 lg:px-4 w-full md:w-auto py-4 md:py-0 relative z-10 hover:scale-105 transition-transform duration-300">
+       <span className="material-symbols-outlined text-primary text-2xl lg:text-3xl drop-shadow-[0_0_15px_rgba(199,255,47,0.5)]">security</span>
+       <div className="flex flex-col text-left">
+         <span className="text-white font-bold text-sm md:text-base mb-1">E2E Encrypted</span>
+         <span className="text-white/50 text-xs font-medium">Military-grade security</span>
+       </div>
+     </div>
+
+   </div>
  </motion.div>
  </motion.div>
  </section>
 
 
  {/* PLATFORM BAR */}
- <section data-light-bg="#f5f6f7" data-dark-bg="#f5f6f7" className="py-10 border-b border-black/8 transition-colors duration-1000 -mt-[15vh] relative z-20 pt-[15vh]">
+ <section data-light-bg="#f5f6f7" data-dark-bg="#f5f6f7" className="py-10 border-b border-black/8 transition-colors duration-1000 relative z-20">
  <div className="max-w-[1200px] mx-auto px-6">
  <div className="flex flex-wrap justify-center items-center gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-6">
  <span className="text-[10px] font-bold tracking-[0.35em] text-black/40 uppercase mr-4">Platforms</span>
@@ -388,6 +422,107 @@ function Home() {
  <span className="text-sm font-bold tracking-wide">{label}</span>
  </div>
  ))}
+ </div>
+ </div>
+ </section>
+
+ {/* CONTINUE WATCHING */}
+ <section data-light-bg="#ffffff" data-dark-bg="#ffffff" className="py-16 md:py-36 border-b border-black/8 transition-colors duration-1000" id="continue-watching">
+ <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+ <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 items-center">
+ <motion.div
+ initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
+ viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+ >
+ <div className="inline-flex items-center gap-2 bg-black/5 text-[#111111] text-[10px] font-bold tracking-[0.2em] uppercase px-4 py-2 rounded-full mb-8">
+ Seamless Sync
+ </div>
+ <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111111] leading-tight tracking-tight mb-6 md:mb-8">
+ <GsapTextFill text="Continue exactly where you left off." />
+ </h2>
+ <div className="space-y-6">
+ {['Start a movie on your desktop.', 'Continue on your mobile device.', 'Everything syncs instantly.'].map((text, i) => (
+ <motion.div key={text} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
+ viewport={{ once: false, amount: 0.1 }} transition={{ delay: 0.2 + i * 0.1 }}
+ className="flex items-center gap-3 md:gap-4 text-black/70 font-medium text-base sm:text-lg group"
+ >
+ <span className="w-8 h-8 rounded-full bg-[#111111] flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md group-hover:scale-110 group-hover:bg-primary group-hover:text-black transition-all duration-300">{i + 1}</span>
+ {text}
+ </motion.div>
+ ))}
+ </div>
+ </motion.div>
+
+ <motion.div
+ initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }}
+ viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+ className="relative group"
+ >
+ <div className="absolute -inset-4 bg-black/[0.02] rounded-[2rem] group-hover:bg-black/[0.04] transition-colors duration-500"></div>
+ <div className="relative rounded-3xl overflow-hidden shadow-xl border border-black/8">
+ <LazyVideo src={`${import.meta.env.BASE_URL}media/new section videos/CNS_commercial_seamless_sync_202606121846.mp4`} className="!rounded-none w-full aspect-video border-0 !shadow-none group-hover:scale-105 transition-transform duration-[2s]" />
+ </div>
+ 
+ {/* Floating Cutout Over the Video */}
+ <motion.img 
+ animate={{ y: [0, -15, 0] }} 
+ transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+ src={`${import.meta.env.BASE_URL}media/contunue watching.png`} 
+ alt="Continue Watching Cutout" 
+ className="absolute -bottom-8 -right-4 sm:-right-8 w-28 sm:w-40 md:w-56 h-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] z-20 pointer-events-none group-hover:scale-110 transition-transform duration-[1s]" 
+ />
+ </motion.div>
+ </div>
+ </div>
+ </section>
+
+ {/* QR PAIRING */}
+ <section data-light-bg="#f5f6f7" data-dark-bg="#f5f6f7" className="py-16 md:py-36 border-b border-black/8 transition-colors duration-1000" id="qr-pairing">
+ <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+ <div className="grid lg:grid-cols-2 gap-10 lg:gap-28 items-center">
+ <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
+ viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+ className="relative order-2 lg:order-1 group"
+ >
+ <div className="absolute -inset-4 bg-black/[0.02] rounded-[2rem] pointer-events-none group-hover:bg-black/[0.04] transition-colors duration-500"></div>
+ 
+ {/* Floating Cutout Elegantly Over the Video */}
+ <motion.img 
+ animate={{ y: [0, -15, 0] }} 
+ transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+ src={`${import.meta.env.BASE_URL}media/pair in seconds cutout.png`} 
+ alt="Pair in seconds cutout" 
+ className="absolute -right-4 sm:-right-12 -bottom-8 sm:-bottom-10 w-32 sm:w-48 md:w-64 h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.3)] z-20 pointer-events-none group-hover:scale-110 transition-transform duration-[1s]" 
+ />
+
+ <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border border-black/8 z-10 bg-black/5">
+ <LazyVideo src={`${import.meta.env.BASE_URL}media/new section videos/CNS_product_demonstration_202606121849.mp4`} className="!rounded-none w-full aspect-video !shadow-none group-hover:scale-105 transition-transform duration-[2s]" />
+ </div>
+ </motion.div>
+
+ <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
+ viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+ className="order-1 lg:order-2"
+ >
+ <div className="inline-flex items-center gap-2 bg-black/5 text-[#111111] text-[10px] font-bold tracking-[0.2em] uppercase px-4 py-2 rounded-full mb-8">Zero Friction</div>
+ <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111111] leading-tight tracking-tight mb-6 md:mb-8">
+ Pair your devices in seconds.
+ </h2>
+ <div className="space-y-6">
+ {[
+ { icon: 'qr_code', text: 'Scan the QR code displayed on your server.' },
+ { icon: 'verified_user', text: 'Secure authorization instantly completes.' },
+ { icon: 'play_circle', text: 'Your library is ready to stream.' },
+ ].map(({ icon, text }) => (
+ <div key={text} className="flex items-center gap-5 group">
+ <div className="w-12 h-12 rounded-xl bg-[#111111] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+ <span className="material-symbols-outlined text-white text-xl">{icon}</span>
+ </div>
+ <span className="text-black/70 font-medium text-base sm:text-lg">{text}</span>
+ </div>
+ ))}
+ </div>
+ </motion.div>
  </div>
  </div>
  </section>
@@ -507,56 +642,6 @@ function Home() {
  </div>
  </section>
 
- {/* CONTINUE WATCHING */}
- <section data-light-bg="#ffffff" data-dark-bg="#ffffff" className="py-16 md:py-36 border-b border-black/8 transition-colors duration-1000" id="continue-watching">
- <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
- <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 items-center">
- <motion.div
- initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
- viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
- >
- <div className="inline-flex items-center gap-2 bg-black/5 text-[#111111] text-[10px] font-bold tracking-[0.2em] uppercase px-4 py-2 rounded-full mb-8">
- Seamless Sync
- </div>
- <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111111] leading-tight tracking-tight mb-6 md:mb-8">
- <GsapTextFill text="Continue exactly where you left off." />
- </h2>
- <div className="space-y-6">
- {['Start a movie on your desktop.', 'Continue on your mobile device.', 'Everything syncs instantly.'].map((text, i) => (
- <motion.div key={text} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
- viewport={{ once: false, amount: 0.1 }} transition={{ delay: 0.2 + i * 0.1 }}
- className="flex items-center gap-3 md:gap-4 text-black/70 font-medium text-base sm:text-lg group"
- >
- <span className="w-8 h-8 rounded-full bg-[#111111] flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md group-hover:scale-110 group-hover:bg-primary group-hover:text-black transition-all duration-300">{i + 1}</span>
- {text}
- </motion.div>
- ))}
- </div>
- </motion.div>
-
- <motion.div
- initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }}
- viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
- className="relative group"
- >
- <div className="absolute -inset-4 bg-black/[0.02] rounded-[2rem] group-hover:bg-black/[0.04] transition-colors duration-500"></div>
- <div className="relative rounded-3xl overflow-hidden shadow-xl border border-black/8">
- <LazyVideo src={`${import.meta.env.BASE_URL}media/new section videos/CNS_commercial_seamless_sync_202606121846.mp4`} className="!rounded-none w-full aspect-video border-0 !shadow-none group-hover:scale-105 transition-transform duration-[2s]" />
- </div>
- 
- {/* Floating Cutout Over the Video */}
- <motion.img 
- animate={{ y: [0, -15, 0] }} 
- transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
- src={`${import.meta.env.BASE_URL}media/contunue watching.png`} 
- alt="Continue Watching Cutout" 
- className="absolute -bottom-8 -right-4 sm:-right-8 w-28 sm:w-40 md:w-56 h-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] z-20 pointer-events-none group-hover:scale-110 transition-transform duration-[1s]" 
- />
- </motion.div>
- </div>
- </div>
- </section>
-
  {/* SETUP - REDESIGNED */}
  <section data-light-bg="#f5f6f7" data-dark-bg="#f5f6f7" className="py-16 md:py-36 border-b border-black/8 transition-colors duration-1000" id="setup">
  <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
@@ -648,57 +733,6 @@ function Home() {
  <span className="text-[#111111] font-bold text-base group-hover:text-[#111111] transition-colors">{title}</span>
  </motion.div>
  ))}
- </div>
- </div>
- </section>
-
- {/* QR PAIRING */}
- <section data-light-bg="#f5f6f7" data-dark-bg="#f5f6f7" className="py-16 md:py-36 border-b border-black/8 transition-colors duration-1000" id="qr-pairing">
- <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
- <div className="grid lg:grid-cols-2 gap-10 lg:gap-28 items-center">
- <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
- viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
- className="relative order-2 lg:order-1 group"
- >
- <div className="absolute -inset-4 bg-black/[0.02] rounded-[2rem] pointer-events-none group-hover:bg-black/[0.04] transition-colors duration-500"></div>
- 
- {/* Floating Cutout Elegantly Over the Video */}
- <motion.img 
- animate={{ y: [0, -15, 0] }} 
- transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
- src={`${import.meta.env.BASE_URL}media/pair in seconds cutout.png`} 
- alt="Pair in seconds cutout" 
- className="absolute -right-4 sm:-right-12 -bottom-8 sm:-bottom-10 w-32 sm:w-48 md:w-64 h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.3)] z-20 pointer-events-none group-hover:scale-110 transition-transform duration-[1s]" 
- />
-
- <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border border-black/8 z-10 bg-black/5">
- <LazyVideo src={`${import.meta.env.BASE_URL}media/new section videos/CNS_product_demonstration_202606121849.mp4`} className="!rounded-none w-full aspect-video !shadow-none group-hover:scale-105 transition-transform duration-[2s]" />
- </div>
- </motion.div>
-
- <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
- viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
- className="order-1 lg:order-2"
- >
- <div className="inline-flex items-center gap-2 bg-black/5 text-[#111111] text-[10px] font-bold tracking-[0.2em] uppercase px-4 py-2 rounded-full mb-8">Zero Friction</div>
- <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111111] leading-tight tracking-tight mb-6 md:mb-8">
- Pair your devices in seconds.
- </h2>
- <div className="space-y-6">
- {[
- { icon: 'qr_code', text: 'Scan the QR code displayed on your server.' },
- { icon: 'verified_user', text: 'Secure authorization instantly completes.' },
- { icon: 'play_circle', text: 'Your library is ready to stream.' },
- ].map(({ icon, text }) => (
- <div key={text} className="flex items-center gap-5 group">
- <div className="w-12 h-12 rounded-xl bg-[#111111] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
- <span className="material-symbols-outlined text-white text-xl">{icon}</span>
- </div>
- <span className="text-black/70 font-medium text-base sm:text-lg">{text}</span>
- </div>
- ))}
- </div>
- </motion.div>
  </div>
  </div>
  </section>

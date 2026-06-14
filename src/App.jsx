@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import { db } from './firebase';
-import { doc, setDoc, getDoc, updateDoc, increment } from 'firebase/firestore';
 
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
@@ -20,32 +18,14 @@ import TermsOfService from './pages/TermsOfService';
 import License from './pages/License';
 import ContactUs from './pages/ContactUs';
 import Admin from './pages/Admin';
+import Dashboard from './pages/Dashboard';
 
 function App() {
-  useEffect(() => {
-    const trackVisitor = async () => {
-      if (!sessionStorage.getItem('visitor_counted')) {
-        try {
-          const statsRef = doc(db, 'stats', 'visitors');
-          const snap = await getDoc(statsRef);
-          if (snap.exists()) {
-            await updateDoc(statsRef, { count: increment(1) });
-          } else {
-            await setDoc(statsRef, { count: 1 });
-          }
-          sessionStorage.setItem('visitor_counted', 'true');
-        } catch (error) {
-          console.error('Error tracking visitor:', error);
-        }
-      }
-    };
-    trackVisitor();
-  }, []);
-
   return (
     <HashRouter>
       <Routes>
         <Route path="/admin" element={<Admin />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="features" element={<Features />} />

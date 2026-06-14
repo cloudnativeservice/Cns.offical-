@@ -30,9 +30,9 @@ export default function MainLayout() {
   const isNavbarDetached = scrolled || !isHome;
 
   const navItems = [
-    { name: 'Features', link: '/features' },
-    { name: 'Setup', link: '/setup' },
-    { name: 'Compare', link: '/compare' },
+    { name: 'Features', link: '/features', icon: 'auto_awesome' },
+    { name: 'Setup', link: '/setup', icon: 'build' },
+    { name: 'Compare', link: '/compare', icon: 'compare_arrows' },
   ];
 
   return (
@@ -45,16 +45,21 @@ export default function MainLayout() {
           </Link>
           <nav className="hidden md:flex gap-8 items-center">
             {navItems.map((item) => (
-              <Link key={item.name} to={item.link} className="text-sm font-bold text-white/70 hover:text-white transition-colors">
+              <Link key={item.name} to={item.link} className="flex items-center gap-1.5 text-sm font-bold text-white/70 hover:text-white transition-colors">
+                <span className="material-symbols-outlined text-[18px]">{item.icon}</span>
                 {item.name}
               </Link>
             ))}
-            <button onClick={() => setIsWaitlistModalOpen(true)} className="text-sm font-bold text-white/70 hover:text-white transition-colors">
+            <button onClick={() => setIsWaitlistModalOpen(true)} className="flex items-center gap-1.5 text-sm font-bold text-white/70 hover:text-white transition-colors">
+              <span className="material-symbols-outlined text-[18px]">download</span>
               Download
             </button>
           </nav>
           <div className="hidden md:flex items-center gap-4">
-            <button onClick={() => setIsWaitlistModalOpen(true)} className="bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-primary transition-colors hover:shadow-[0_0_20px_rgba(199,255,47,0.3)] text-sm">Download</button>
+            <button onClick={() => setIsWaitlistModalOpen(true)} className="flex items-center gap-1.5 bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-primary transition-colors hover:shadow-[0_0_20px_rgba(199,255,47,0.3)] text-sm">
+              <span className="material-symbols-outlined text-[18px]">download</span>
+              Download
+            </button>
           </div>
           <button className="md:hidden z-50 w-10 h-10 flex flex-col justify-center items-center gap-1.5" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <span className={`w-6 h-0.5 bg-white transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
@@ -68,7 +73,8 @@ export default function MainLayout() {
         {isMenuOpen && (
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="fixed inset-0 z-40 bg-[#050505] flex flex-col pt-24 px-6 md:hidden">
             {navItems.map((item, i) => (
-              <motion.a initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} key={item.name} href={item.link} onClick={() => setIsMenuOpen(false)} className="text-3xl font-black text-white border-b border-white/10 py-6">
+              <motion.a initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} key={item.name} href={item.link} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 text-3xl font-black text-white border-b border-white/10 py-6">
+                <span className="material-symbols-outlined text-[32px] text-primary">{item.icon}</span>
                 {item.name}
               </motion.a>
             ))}
@@ -77,8 +83,9 @@ export default function MainLayout() {
                 setIsMenuOpen(false);
                 setIsWaitlistModalOpen(true);
               }} 
-              className="mt-8 bg-primary text-black py-4 rounded-xl font-bold text-center text-lg w-full"
+              className="mt-8 flex items-center justify-center gap-2 bg-primary text-black py-4 rounded-xl font-bold text-center text-lg w-full"
             >
+              <span className="material-symbols-outlined">download</span>
               Download
             </button>
           </motion.div>
